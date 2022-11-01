@@ -7,7 +7,16 @@ const lexer = compile({
   string: /"(?:\\["\\]|[^\n"\\])*"/,
   lparen: '(',
   rparen: ')',
-  keyword: ['while', 'if', 'else', 'moo', 'cows'],
+  lcurley: '{',
+  rcurley: '}',
+  lsquare: '[',
+  rsquare: ']',
+  assign: ':=',
+  thinArrow: '->',
+  eq: '=',
+  semicol: ';',
+  keyword: ['let', 'func', 'while', 'true', 'false'],
+  identifier: /[a-zA-Z][a-zA-Z0-9_]*/,
   NL: { match: /\n/, lineBreaks: true },
 })
 
