@@ -16,7 +16,7 @@ const lexer = (0, moo_1.compile)({
     thinArrow: '->',
     eq: '=',
     semicol: ';',
-    keyword: ['let', 'func', 'while', 'true', 'false'],
+    keyword: ['let', 'func', 'while', 'true', 'false', 'call'],
     identifier: /[a-zA-Z][a-zA-Z0-9_]*/,
     NL: { match: /\n/, lineBreaks: true },
 });

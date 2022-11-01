@@ -16,23 +16,20 @@ var grammar = {
         }
           },
     {"name": "statements", "symbols": [], "postprocess": () => []},
-    {"name": "statements", "symbols": ["_", "statement", "_"], "postprocess":  
+    {"name": "statements", "symbols": ["statement"], "postprocess":  
         (data) => {
-            return [data[2]]
+            return [data[0]]
         }
           },
     {"name": "statements$ebnf$1", "symbols": []},
     {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", (myLexer.has("NL") ? {type: "NL"} : NL)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "statements$ebnf$2", "symbols": []},
-    {"name": "statements$ebnf$2", "symbols": ["statements$ebnf$2", (myLexer.has("NL") ? {type: "NL"} : NL)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "statements$ebnf$3", "symbols": []},
-    {"name": "statements$ebnf$3", "symbols": ["statements$ebnf$3", (myLexer.has("NL") ? {type: "NL"} : NL)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "statements", "symbols": ["statements$ebnf$1", "statement", "statements$ebnf$2", "_", "statements", "_", "statements$ebnf$3"], "postprocess": 
+    {"name": "statements", "symbols": ["statement", "statements$ebnf$1", "statements"], "postprocess": 
         (data) => {
-            return [data[0], ...data[3]]
+            return [data[0], ...data[2]]
         }
           },
     {"name": "statement", "symbols": ["varAssign"], "postprocess": id},
+    {"name": "statement", "symbols": ["funcCall"], "postprocess": id},
     {"name": "statement", "symbols": ["funcAssign"], "postprocess": id},
     {"name": "varAssign", "symbols": [{"literal":"let"}, "__", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":":="}, "_", "expr", "_", {"literal":";"}], "postprocess": 
         (data) => {
@@ -43,26 +40,64 @@ var grammar = {
           }
         }
           },
-    {"name": "funcAssign$ebnf$1", "symbols": []},
-    {"name": "funcAssign$ebnf$1$subexpression$1", "symbols": ["args", "_", {"literal":";"}]},
-    {"name": "funcAssign$ebnf$1", "symbols": ["funcAssign$ebnf$1", "funcAssign$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "funcAssign", "symbols": [{"literal":"func"}, "__", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"("}, "_", "funcAssign$ebnf$1", "_", {"literal":")"}, "_", {"literal":"->"}, "_", {"literal":"["}, "_ml", "statements", "_ml", {"literal":"]"}], "postprocess": 
+    {"name": "funcCall$ebnf$1$subexpression$1", "symbols": ["callArgs"]},
+    {"name": "funcCall$ebnf$1", "symbols": ["funcCall$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "funcCall$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "funcCall", "symbols": [{"literal":"call"}, "__", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"("}, "_", "funcCall$ebnf$1", "_", {"literal":")"}, "_", {"literal":";"}], "postprocess": 
+        (data) => {
+            return {
+                type: 'func_call',
+                name: data[2],
+                args: data[6] ? data[6][0] : []
+            }
+        }
+          },
+    {"name": "funcAssign", "symbols": [{"literal":"func"}, "__", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"("}, "_", "paramList", "_", {"literal":")"}, "_", {"literal":"->"}, "_", "codeBody"], "postprocess": 
         (data) => {
             return {
                 type: "func_assign",
                 funcName: data[2],
                 args: data[6] ? data[6][0] : [],
-                body: data[13]
+                funcBody: data[12]
             }
+        }
+          },
+    {"name": "codeBody", "symbols": ["expr"], "postprocess": 
+        (data) => {
+            return [data[0]]
+        }
+          },
+    {"name": "codeBody$ebnf$1", "symbols": []},
+    {"name": "codeBody$ebnf$1", "symbols": ["codeBody$ebnf$1", (myLexer.has("NL") ? {type: "NL"} : NL)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "codeBody$ebnf$2", "symbols": []},
+    {"name": "codeBody$ebnf$2", "symbols": ["codeBody$ebnf$2", (myLexer.has("NL") ? {type: "NL"} : NL)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "codeBody", "symbols": [{"literal":"["}, "_", "codeBody$ebnf$1", "_", "statement", "_", "codeBody$ebnf$2", "_", {"literal":"]"}], "postprocess": 
+        (data) => {
+          return [data[4]]
         }
           },
     {"name": "expr", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "expr", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
     {"name": "expr", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
-    {"name": "args", "symbols": [], "postprocess": () => []},
-    {"name": "args", "symbols": ["args", "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": 
+    {"name": "expr", "symbols": ["funcCall"], "postprocess": id},
+    {"name": "callArgs", "symbols": ["expr"], "postprocess": 
+        (data) => {
+            return [data[0]]
+        }
+          },
+    {"name": "callArgs", "symbols": ["callArgs", "_", {"literal":";"}, "_", "expr"], "postprocess": 
         (data) => {
             return [...data[0], data[4]] 
+          }
+          },
+    {"name": "paramList$ebnf$1", "symbols": []},
+    {"name": "paramList$ebnf$1$subexpression$1", "symbols": [{"literal":";"}, "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier)]},
+    {"name": "paramList$ebnf$1", "symbols": ["paramList$ebnf$1", "paramList$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "paramList", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "paramList$ebnf$1"], "postprocess": 
+        (data) => {
+            const repeatedArr = data[1]
+            const restParams = repeatedArr.map(val => val[1])
+            return [data[0], ...restParams] 
           }
           },
     {"name": "_$ebnf$1", "symbols": []},

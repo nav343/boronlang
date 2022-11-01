@@ -1,6 +1,49 @@
-[
-  {
-    "type": "program",
-    "body": []
-  }
-]
+{
+  "type": "program",
+  "body": [
+    {
+      "type": "func_assign",
+      "funcName": {
+        "type": "identifier",
+        "value": "welcome",
+        "text": "welcome",
+        "offset": 5,
+        "lineBreaks": 0,
+        "line": 1,
+        "col": 6
+      },
+      "args": {
+        "type": "identifier",
+        "value": "a",
+        "text": "a",
+        "offset": 13,
+        "lineBreaks": 0,
+        "line": 1,
+        "col": 14
+      },
+      "funcBody": [
+        {
+          "type": "var_assign",
+          "name": {
+            "type": "identifier",
+            "value": "name",
+            "text": "name",
+            "offset": 30,
+            "lineBreaks": 0,
+            "line": 2,
+            "col": 7
+          },
+          "value": {
+            "type": "string",
+            "value": "\"nicename\"",
+            "text": "\"nicename\"",
+            "offset": 38,
+            "lineBreaks": 0,
+            "line": 2,
+            "col": 15
+          }
+        }
+      ]
+    }
+  ]
+}

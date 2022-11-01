@@ -16,24 +16,26 @@ program
 
 statements
   -> null {% () => [] %}
-  | _ statement _
+  | statement
   {% 
     (data) => {
-        return [data[2]]
+        return [data[0]]
     }
   %}
-  
-  | %NL:* statement %NL:* _ statements _ %NL:*  
+ 
+  | statement %NL:* statements
   {%
     (data) => {
-        return [data[0], ...data[3]]
+        return [data[0], ...data[2]]
     }
   %}
 
 statement
   -> varAssign {% id %}
+  | funcCall {% id %}
   | funcAssign {% id %}
 
+# let name := "Name";
 varAssign
   -> "let" __ %identifier _ ":=" _ expr _ ";"
   {%
@@ -46,17 +48,44 @@ varAssign
     }
   %}
 
+# call funcName(params);
+funcCall
+  -> "call" __ %identifier _ "(" _ (callArgs):? _ ")" _ ";"
+  {%
+    (data) => {
+        return {
+            type: 'func_call',
+            name: data[2],
+            args: data[6] ? data[6][0] : []
+        }
+    }
+  %}
+
 # func hello(a; b) -> [...]
 funcAssign
-  -> "func" __ %identifier _ "(" _ (args _ ";"):* _ ")" _ "->" _ "[" _ml statements _ml "]"
+  -> "func" __ %identifier _ "(" _ paramList _ ")" _ "->" _ codeBody 
   {%
     (data) => {
         return {
             type: "func_assign",
             funcName: data[2],
             args: data[6] ? data[6][0] : [],
-            body: data[13]
+            funcBody: data[12]
         }
+    }
+  %}
+
+codeBody
+  -> expr
+  {%
+    (data) => {
+        return [data[0]]
+    }
+  %}
+  | "[" _ %NL:* _ statement _ %NL:* _ "]"
+  {%
+    (data) => {
+      return [data[4]]
     }
   %}
 
@@ -64,13 +93,29 @@ expr
   -> %string {% id %}
   | %number {% id %}
   | %identifier {% id %}
+  | funcCall {% id %}
 
-args
-  -> null {% () => [] %}
-  | args _ %identifier
+callArgs
+  -> expr
+  {%
+    (data) => {
+        return [data[0]]
+    }
+  %}
+  | callArgs _ ";" _ expr
   {%
     (data) => {
         return [...data[0], data[4]] 
+      }
+  %}
+
+paramList
+  -> %identifier (";" _ %identifier):*
+  {%
+    (data) => {
+        const repeatedArr = data[1]
+        const restParams = repeatedArr.map(val => val[1])
+        return [data[0], ...restParams] 
       }
   %}
 
@@ -80,4 +125,5 @@ _ -> %WS:*
 #Mandatory Whitespace
 __ -> %WS:+
 
+# Optional multiline whitespace or newline
 _ml -> (%WS | %NL):*

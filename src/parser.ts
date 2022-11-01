@@ -15,10 +15,10 @@ function run() {
 
   if (!fileName) { console.log("Please provide a .boron file."); return }
   parser.feed(readfile(fileName))
-  const ast = JSON.stringify(parser.results, null, '  ')
+  const ast = JSON.stringify(parser.results[0], null, '  ')
 
   if (parser.results.length > 1) {
-    console.log("Error: Ambiguous grammar found !!!")
+    console.log(ast)
     return
   } else if (parser.results.length === 1) {
     writeAST(fileName, ast)
