@@ -1,3 +1,6 @@
-func welcome(a; b) -> [
-  let name := "nicename";
+let name := "Name";
+let age := 234;
+
+func welcome(name; age) -> [
+  call print("Welcome"; name; age);
 ]
