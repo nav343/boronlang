@@ -14,109 +14,13 @@
       },
       "value": {
         "type": "string",
-        "value": "\"Name\"",
-        "text": "\"Name\"",
+        "value": "\"NiceName\"",
+        "text": "\"NiceName\"",
         "offset": 12,
         "lineBreaks": 0,
         "line": 1,
         "col": 13
       }
-    },
-    {
-      "type": "var_assign",
-      "name": {
-        "type": "identifier",
-        "value": "age",
-        "text": "age",
-        "offset": 24,
-        "lineBreaks": 0,
-        "line": 2,
-        "col": 5
-      },
-      "value": {
-        "type": "number",
-        "value": "234",
-        "text": "234",
-        "offset": 31,
-        "lineBreaks": 0,
-        "line": 2,
-        "col": 12
-      }
-    },
-    {
-      "type": "func_assign",
-      "funcName": {
-        "type": "identifier",
-        "value": "welcome",
-        "text": "welcome",
-        "offset": 42,
-        "lineBreaks": 0,
-        "line": 4,
-        "col": 6
-      },
-      "args": [
-        {
-          "type": "identifier",
-          "value": "name",
-          "text": "name",
-          "offset": 50,
-          "lineBreaks": 0,
-          "line": 4,
-          "col": 14
-        },
-        {
-          "type": "identifier",
-          "value": "age",
-          "text": "age",
-          "offset": 56,
-          "lineBreaks": 0,
-          "line": 4,
-          "col": 20
-        }
-      ],
-      "funcBody": [
-        {
-          "type": "func_call",
-          "name": {
-            "type": "identifier",
-            "value": "print",
-            "text": "print",
-            "offset": 73,
-            "lineBreaks": 0,
-            "line": 5,
-            "col": 8
-          },
-          "args": [
-            {
-              "type": "string",
-              "value": "\"Welcome\"",
-              "text": "\"Welcome\"",
-              "offset": 79,
-              "lineBreaks": 0,
-              "line": 5,
-              "col": 14
-            },
-            {
-              "type": "identifier",
-              "value": "name",
-              "text": "name",
-              "offset": 90,
-              "lineBreaks": 0,
-              "line": 5,
-              "col": 25
-            },
-            {
-              "type": "identifier",
-              "value": "age",
-              "text": "age",
-              "offset": 96,
-              "lineBreaks": 0,
-              "line": 5,
-              "col": 31
-            }
-          ]
-        }
-      ]
     }
   ]
 }

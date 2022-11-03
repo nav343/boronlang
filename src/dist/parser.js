@@ -10,7 +10,7 @@ const fs_1 = require("fs");
 const chalk_1 = require("chalk");
 function readfile(fileName) {
     if (!fileName) {
-        console.log("Please provide a file name.");
+        console.log((0, chalk_1.red)("Please provide a file name."));
     }
     const content = (0, fs_1.readFileSync)(fileName, { encoding: 'utf8', flag: "r" }).toString();
     return content;
@@ -19,7 +19,7 @@ function run() {
     const fileName = process.argv[2];
     const parser = new nearley_1.Parser(nearley_1.Grammar.fromCompiled(boron_js_1.default));
     if (!fileName) {
-        console.log("Please provide a .boron file.");
+        console.log((0, chalk_1.red)("Please provide a .boron file."));
         return;
     }
     try {

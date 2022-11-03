@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'fs'
 import { red, green } from 'chalk'
 
 function readfile(fileName: string) {
-  if (!fileName) { console.log("Please provide a file name.") }
+  if (!fileName) { console.log(red("Please provide a file name.")) }
   const content = readFileSync(fileName, { encoding: 'utf8', flag: "r" }).toString()
   return content
 }
@@ -14,7 +14,7 @@ function run() {
   const fileName = process.argv[2]
   const parser = new Parser(Grammar.fromCompiled(grammar))
 
-  if (!fileName) { console.log("Please provide a .boron file."); return }
+  if (!fileName) { console.log(red("Please provide a .boron file.")); return }
 
   try {
     parser.feed(readfile(fileName))
