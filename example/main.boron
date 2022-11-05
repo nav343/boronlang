@@ -1,1 +1,5 @@
-let name := "NiceName";
+func main(a; b) -> [
+  call print(a; b; "NICE");
+]
+
+call main("Hi"; "Nice");

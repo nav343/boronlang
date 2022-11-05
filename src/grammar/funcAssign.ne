@@ -24,12 +24,10 @@ codeBody
         return [data[0]]
     }
   %}
-  | "[" _ml statement _ml (statement):* _ml "]"
+  | "[" _ml statement _ml "]"
   {%
     (data) => {
-      const repeatedarr = data[4];
-      const restBody = repeatedarr.map(val => val[0])
-      return [data[2], ...restBody]
+      return [data[2]]
     }
   %}
 

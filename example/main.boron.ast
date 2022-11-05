@@ -2,25 +2,111 @@
   "type": "program",
   "body": [
     {
-      "type": "var_assign",
+      "type": "func_assign",
+      "funcName": {
+        "type": "identifier",
+        "value": "main",
+        "text": "main",
+        "offset": 5,
+        "lineBreaks": 0,
+        "line": 1,
+        "col": 6
+      },
+      "args": [
+        {
+          "type": "identifier",
+          "value": "a",
+          "text": "a",
+          "offset": 10,
+          "lineBreaks": 0,
+          "line": 1,
+          "col": 11
+        },
+        {
+          "type": "identifier",
+          "value": "b",
+          "text": "b",
+          "offset": 13,
+          "lineBreaks": 0,
+          "line": 1,
+          "col": 14
+        }
+      ],
+      "funcBody": [
+        {
+          "type": "func_call",
+          "name": {
+            "type": "identifier",
+            "value": "print",
+            "text": "print",
+            "offset": 28,
+            "lineBreaks": 0,
+            "line": 2,
+            "col": 8
+          },
+          "args": [
+            {
+              "type": "identifier",
+              "value": "a",
+              "text": "a",
+              "offset": 34,
+              "lineBreaks": 0,
+              "line": 2,
+              "col": 14
+            },
+            {
+              "type": "identifier",
+              "value": "b",
+              "text": "b",
+              "offset": 37,
+              "lineBreaks": 0,
+              "line": 2,
+              "col": 17
+            },
+            {
+              "type": "string",
+              "value": "\"NICE\"",
+              "text": "\"NICE\"",
+              "offset": 40,
+              "lineBreaks": 0,
+              "line": 2,
+              "col": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "func_call",
       "name": {
         "type": "identifier",
-        "value": "name",
-        "text": "name",
-        "offset": 4,
+        "value": "main",
+        "text": "main",
+        "offset": 57,
         "lineBreaks": 0,
-        "line": 1,
-        "col": 5
+        "line": 5,
+        "col": 6
       },
-      "value": {
-        "type": "string",
-        "value": "\"NiceName\"",
-        "text": "\"NiceName\"",
-        "offset": 12,
-        "lineBreaks": 0,
-        "line": 1,
-        "col": 13
-      }
+      "args": [
+        {
+          "type": "string",
+          "value": "\"Hi\"",
+          "text": "\"Hi\"",
+          "offset": 62,
+          "lineBreaks": 0,
+          "line": 5,
+          "col": 11
+        },
+        {
+          "type": "string",
+          "value": "\"Nice\"",
+          "text": "\"Nice\"",
+          "offset": 68,
+          "lineBreaks": 0,
+          "line": 5,
+          "col": 17
+        }
+      ]
     }
   ]
 }

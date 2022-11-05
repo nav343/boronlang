@@ -65,14 +65,9 @@ var grammar = {
             return [data[0]]
         }
           },
-    {"name": "codeBody$ebnf$1", "symbols": []},
-    {"name": "codeBody$ebnf$1$subexpression$1", "symbols": ["statement"]},
-    {"name": "codeBody$ebnf$1", "symbols": ["codeBody$ebnf$1", "codeBody$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "codeBody", "symbols": [{"literal":"["}, "_ml", "statement", "_ml", "codeBody$ebnf$1", "_ml", {"literal":"]"}], "postprocess": 
+    {"name": "codeBody", "symbols": [{"literal":"["}, "_ml", "statement", "_ml", {"literal":"]"}], "postprocess": 
         (data) => {
-          const repeatedarr = data[4];
-          const restBody = repeatedarr.map(val => val[0])
-          return [data[2], ...restBody]
+          return [data[2]]
         }
           },
     {"name": "paramList$ebnf$1", "symbols": []},
