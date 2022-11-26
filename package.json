@@ -16,5 +16,8 @@
     "chalk": "4.1.2",
     "moo": "^0.5.2",
     "nearley": "^2.20.1"
+  },
+  "pkg": {
+    "outputPath": "out"
   }
 }

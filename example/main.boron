@@ -1,5 +1,9 @@
-func main(a; b) -> [
-  call print(a; b; "NICE");
-]
+let test := 123;
 
-call main("Hi"; "Nice");
+while <len < 125> -> [
+  if <test == 123> -> [
+    call print("Nice");
+  ] else -> [
+    call print("Hi");
+  ]
+]  
