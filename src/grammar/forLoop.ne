@@ -28,11 +28,9 @@ condition
   %}
 
 forBody
-  -> _ml (statement _ml):*
+  -> _ statements _
   {%
     (data) => {
-      const arr = data[1]
-      const stat = arr.map(val => val[0])
-      return stat.map(val => val)
+      return [data[0]]
     }
   %}

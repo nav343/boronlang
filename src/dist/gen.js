@@ -44,6 +44,9 @@ def div(num1, *args):
     for num in args:
         total /= num
     return total
+
+def mod(a, b):
+  return a % b
 `;
 function genPy(node) {
     if (node.type === 'program') {
@@ -91,6 +94,7 @@ function genPy(node) {
         const varname = node.condition.var.value;
         const op = node.condition.op.value;
         const body = node.body.map(genPy);
+        const expr2 = node.condition.expr2.value;
         if (node.condition.expr2.type === "func_call") {
             const fname = node.condition.expr2.name.value;
             const args = node.condition.expr2.args.map(genPy).join(', ');
@@ -98,7 +102,6 @@ function genPy(node) {
       ${body.join('\n    ')}`;
         }
         else {
-            const expr2 = node.condition.expr2.value;
             return `for ${varname} ${op} ${expr2}:
       ${body.join('\n    ')}`;
         }

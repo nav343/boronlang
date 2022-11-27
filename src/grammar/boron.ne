@@ -23,14 +23,8 @@ program
 
 statements
   -> null {% () => [] %}
-  | statement
-  {% 
-    (data) => {
-        return [data[0]]
-    }
-  %}
- 
- | _ml statement (__lb_ statement):* _ml
+  
+  | _ml statement (__lb_ statement):* _ml
  {%
     (data) => {
         const repeated = data[2]
@@ -38,6 +32,12 @@ statements
         return [data[1], ...restStatements]
       }
  %}
+ | statement
+  {% 
+    (data) => {
+        return [data[0]]
+    }
+  %}
 
 statement
   -> varAssign {% id %}

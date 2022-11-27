@@ -1,0 +1,42 @@
+{
+  "type": "program",
+  "body": [
+    {
+      "type": "for_loop",
+      "condition": {
+        "var": {
+          "type": "identifier",
+          "value": "i",
+          "text": "i",
+          "offset": 5,
+          "lineBreaks": 0,
+          "line": 1,
+          "col": 6
+        },
+        "op": {
+          "type": "identifier",
+          "value": "in",
+          "text": "in",
+          "offset": 7,
+          "lineBreaks": 0,
+          "line": 1,
+          "col": 8
+        },
+        "expr2": {
+          "type": "string",
+          "value": "\"23543\"",
+          "text": "\"23543\"",
+          "offset": 10,
+          "lineBreaks": 0,
+          "line": 1,
+          "col": 11
+        }
+      },
+      "body": [
+        [
+          []
+        ]
+      ]
+    }
+  ]
+}

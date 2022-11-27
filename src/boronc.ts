@@ -37,7 +37,7 @@ exec(`python3 ${execFileName}`, (error, stdout) => {
   } else {
     console.log(stdout)
     console.timeEnd("Ended in")
-    rm(fileName + '.ast')
-    rm(fileName.replace('.boron', '.py'))
+    //rm(fileName + '.ast')
+    //rm(fileName.replace('.boron', '.py'))
   }
 })

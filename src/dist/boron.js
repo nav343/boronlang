@@ -100,7 +100,7 @@ var grammar = {
     {"name": "ifStatement$ebnf$1$subexpression$1", "symbols": ["ifBody"]},
     {"name": "ifStatement$ebnf$1", "symbols": ["ifStatement$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "ifStatement$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "ifStatement", "symbols": [{"literal":"if"}, "_", {"literal":"<"}, "_", "condition", "_", {"literal":">"}, "_", (ifLexer.has("thinArrow") ? {type: "thinArrow"} : thinArrow), "_", {"literal":"["}, "ifStatement$ebnf$1", {"literal":"]"}], "postprocess": 
+    {"name": "ifStatement", "symbols": [{"literal":"if"}, "_", {"literal":"<"}, "_", "condition", "_", {"literal":">"}, "_", (ifLexer.has("thinArrow") ? {type: "thinArrow"} : thinArrow), "_", {"literal":"["}, "ifStatement$ebnf$1", {"literal":"]"}, "_ml"], "postprocess": 
         (data) => {
             return {
               type: "if_statement",
@@ -166,14 +166,9 @@ var grammar = {
             }
         }
           },
-    {"name": "forBody$ebnf$1", "symbols": []},
-    {"name": "forBody$ebnf$1$subexpression$1", "symbols": ["statement", "_ml"]},
-    {"name": "forBody$ebnf$1", "symbols": ["forBody$ebnf$1", "forBody$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "forBody", "symbols": ["_ml", "forBody$ebnf$1"], "postprocess": 
+    {"name": "forBody", "symbols": ["_", "statements", "_"], "postprocess": 
         (data) => {
-          const arr = data[1]
-          const stat = arr.map(val => val[0])
-          return stat.map(val => val)
+          return [data[0]]
         }
           },
     {"name": "whileLoop$ebnf$1$subexpression$1", "symbols": ["whileBody"]},
@@ -197,14 +192,9 @@ var grammar = {
             }
         }
           },
-    {"name": "whileBody$ebnf$1", "symbols": []},
-    {"name": "whileBody$ebnf$1$subexpression$1", "symbols": ["statement", "_ml"]},
-    {"name": "whileBody$ebnf$1", "symbols": ["whileBody$ebnf$1", "whileBody$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "whileBody", "symbols": ["_ml", "whileBody$ebnf$1"], "postprocess": 
+    {"name": "whileBody", "symbols": ["statements"], "postprocess": 
         (data) => {
-          const arr = data[1]
-          const stat = arr.map(val => val[0])
-          return stat.map(val => val)
+          return [data[0][0]]
         }
           },
     {"name": "specVarAssign$ebnf$1$subexpression$1", "symbols": ["specArgs"]},
@@ -241,11 +231,6 @@ var grammar = {
         }
           },
     {"name": "statements", "symbols": [], "postprocess": () => []},
-    {"name": "statements", "symbols": ["statement"], "postprocess":  
-        (data) => {
-            return [data[0]]
-        }
-          },
     {"name": "statements$ebnf$1", "symbols": []},
     {"name": "statements$ebnf$1$subexpression$1", "symbols": ["__lb_", "statement"]},
     {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", "statements$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
@@ -256,6 +241,11 @@ var grammar = {
             return [data[1], ...restStatements]
           }
          },
+    {"name": "statements", "symbols": ["statement"], "postprocess":  
+        (data) => {
+            return [data[0]]
+        }
+          },
     {"name": "statement", "symbols": ["varAssign"], "postprocess": id},
     {"name": "statement", "symbols": ["funcCall"], "postprocess": id},
     {"name": "statement", "symbols": ["funcAssign"], "postprocess": id},

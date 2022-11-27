@@ -9,7 +9,6 @@ const parser_1 = require("./parser");
 const boron_js_1 = __importDefault(require("./boron.js"));
 const node_child_process_1 = require("node:child_process");
 const chalk_1 = require("chalk");
-const promises_1 = require("fs/promises");
 const fileName = process.argv[2];
 console.time("Ended in");
 (0, parser_1.run)(boron_js_1.default, fileName).catch(() => { return; });
@@ -39,7 +38,7 @@ const execFileName = fileName.replace('.boron', '.py');
     else {
         console.log(stdout);
         console.timeEnd("Ended in");
-        (0, promises_1.rm)(fileName + '.ast');
-        (0, promises_1.rm)(fileName.replace('.boron', '.py'));
+        //rm(fileName + '.ast')
+        //rm(fileName.replace('.boron', '.py'))
     }
 });

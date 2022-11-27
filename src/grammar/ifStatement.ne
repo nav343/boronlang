@@ -4,7 +4,7 @@
 @lexer ifLexer
 
 ifStatement
-  -> "if" _ "<" _ condition _ ">" _ %thinArrow _ "[" (ifBody):? "]"
+  -> "if" _ "<" _ condition _ ">" _ %thinArrow _ "[" (ifBody):? "]" _ml
   {%
     (data) => {
         return {

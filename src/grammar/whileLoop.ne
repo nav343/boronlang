@@ -28,11 +28,9 @@ condition
   %}
 
 whileBody
-  -> _ml (statement _ml):*
+  -> statements
   {%
     (data) => {
-      const arr = data[1]
-      const stat = arr.map(val => val[0])
-      return stat.map(val => val)
+      return [data[0][0]]
     }
   %}
